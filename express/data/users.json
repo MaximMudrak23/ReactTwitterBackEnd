@@ -1,3 +1,18 @@
 [
-  
+  {
+    "id": "1739887725438_zxc",
+    "username": "zxc",
+    "password": "$2b$10$AoBMO/4XQLmElfkCATG5Ne9roDXG/NCJf921AixnpNagGg15OlXNm",
+    "birthDate": "17-9-2010",
+    "fullname": "zxc",
+    "avatar": null,
+    "background": null,
+    "isUserConfirmed": false,
+    "isUserTwitterCreator": false,
+    "posts": {
+      "created": [],
+      "liked": [],
+      "saved": []
+    }
+  }
 ]

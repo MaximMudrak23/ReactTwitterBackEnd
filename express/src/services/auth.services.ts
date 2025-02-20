@@ -1,6 +1,7 @@
 import fs from "fs/promises";
 import { usersPath } from "../data.path";
 import { User } from "../types/userType";
+import bcrypt from 'bcrypt';
 
 export async function register(username: string, password: string, birthDate: string) {
     try {
@@ -10,10 +11,12 @@ export async function register(username: string, password: string, birthDate: st
             throw new Error('Имя пользователя уже занято!');
         }
 
+        const hashedPassword = await bcrypt.hash(password,10);
+
         const newUser: User = {
             id: Date.now().toString() + `_${username}`,
             username, // Прилетает с фронта
-            password, // Прилетает с фронта
+            password: hashedPassword, // Прилетает с фронта
             birthDate, // Прилетает с фронта
             fullname: username,
             avatar: null,
@@ -39,7 +42,8 @@ export async function register(username: string, password: string, birthDate: st
 export async function login (username: string, password: string) {
     try {
         const users: User[] = JSON.parse(await fs.readFile(usersPath,'utf-8'));
-        const user = users.find(u => u.username === username && u.password === password);
+        const user = users.find(u => u.username === username);
+        if(!user || !(await bcrypt.compare(password, user.password))) return null;
         return user || null;
     } catch (error) {
         console.error('Ошибка входа:',error);
