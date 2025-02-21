@@ -1,7 +1,7 @@
 import fs from "fs/promises";
+import bcrypt from 'bcrypt';
 import { usersPath } from "../data.path";
 import { User } from "../types/userType";
-import bcrypt from 'bcrypt';
 
 export async function register(username: string, password: string, birthDate: string) {
     try {
@@ -23,6 +23,8 @@ export async function register(username: string, password: string, birthDate: st
             background: null,
             isUserConfirmed: false,
             isUserTwitterCreator: false,
+            userSubscribtions: [],
+            userSubscribers: [],
             posts: {
                 created: [],
                 liked: [],

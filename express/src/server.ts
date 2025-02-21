@@ -2,12 +2,16 @@ import express from "express";
 import cors from 'cors';
 import authRoutes from './routes/auth.routes'
 import userRouter from './routes/user.routes';
+import { userBackgroundPath, userProfilePicturePath } from './data.path';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.json());
+
+app.use('/userBackground', express.static(userBackgroundPath));
+app.use('/userProfilePicture', express.static(userProfilePicturePath));
 
 app.use('/api', authRoutes);
 app.use('/api/user', userRouter);

@@ -8,6 +8,8 @@ export interface User {
     background: string | null,
     isUserConfirmed: boolean,
     isUserTwitterCreator: boolean,
+    userSubscribtions: [],
+    userSubscribers: [],
     posts: {
         created: string[],
         liked: string[],
