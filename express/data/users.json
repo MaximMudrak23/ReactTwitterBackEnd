@@ -1,3 +1,44 @@
 [
-  
+  {
+    "id": "1740153288301_zxc",
+    "username": "zxc",
+    "password": "$2b$10$8f4nZ3j64JBykpGTUzuDZOdViJC1EarDVca/LI76pXAt1gLeao9tW",
+    "birthDate": "13-5-2012",
+    "fullname": "zxc",
+    "avatar": "http://localhost:3000/userProfilePicture/zxc.png",
+    "background": "http://localhost:3000/userBackground/edit2.mp4",
+    "regDate": "21.02.2025",
+    "isUserConfirmed": true,
+    "isUserTwitterCreator": true,
+    "userSubscribtions": [],
+    "userSubscribers": [
+      "zxczxc"
+    ],
+    "posts": {
+      "created": [],
+      "liked": [],
+      "saved": []
+    }
+  },
+  {
+    "id": "1740153296650_zxczxc",
+    "username": "zxczxc",
+    "password": "$2b$10$dc.D94BKazAMo7SrnCaIXOrGwXVNFlQxOqzlskdK4nfk/R9.d2wbi",
+    "birthDate": "12-7-2012",
+    "fullname": "zxczxc",
+    "avatar": null,
+    "background": null,
+    "regDate": "21.02.2025",
+    "isUserConfirmed": false,
+    "isUserTwitterCreator": false,
+    "userSubscribtions": [
+      "zxc"
+    ],
+    "userSubscribers": [],
+    "posts": {
+      "created": [],
+      "liked": [],
+      "saved": []
+    }
+  }
 ]

@@ -21,6 +21,7 @@ export async function register(username: string, password: string, birthDate: st
             fullname: username,
             avatar: null,
             background: null,
+            regDate: new Date().toLocaleDateString('ru-RU', {day: '2-digit', month: '2-digit', year: 'numeric'}),
             isUserConfirmed: false,
             isUserTwitterCreator: false,
             userSubscribtions: [],
