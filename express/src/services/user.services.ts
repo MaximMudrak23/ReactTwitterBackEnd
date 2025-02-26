@@ -101,12 +101,10 @@ export async function uploadBackgroundService(username: string, filePath: string
             throw new Error("Пользователь не найден");
         }
 
-        // Определяем расширение файла
         const ext = mimeType.startsWith("video/") ? "mp4" : "jpg";
         const newBackgroundName = `${username}.${ext}`;
         const newBackgroundPath = path.join(userBackgroundPath, newBackgroundName);
 
-        // Удаляем старый фон, если есть
         const oldBackground = users[userIndex].background;
         if (oldBackground) {
             const oldBackgroundPath = path.join(userBackgroundPath, path.basename(oldBackground));
@@ -115,10 +113,8 @@ export async function uploadBackgroundService(username: string, filePath: string
             );
         }
 
-        // Переименовываем новый файл
         await fs.rename(filePath, newBackgroundPath);
 
-        // Обновляем JSON-файл
         const backgroundURL = `http://localhost:3000/userBackground/${newBackgroundName}`;
         users[userIndex].background = backgroundURL;
 

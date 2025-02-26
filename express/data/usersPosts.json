@@ -1,1 +1,47 @@
-[]
+[
+  {
+    "id": "1740585210857_zxczxc",
+    "author": "zxczxc",
+    "text": "zxczxczxc",
+    "createdAt": "2025-02-26T15:53:30.873Z",
+    "likes": [],
+    "saves": [],
+    "isPinned": false
+  },
+  {
+    "id": "1740586597601_zxczxc",
+    "author": "zxczxc",
+    "text": "asdasdasd",
+    "createdAt": "2025-02-26T16:16:37.617Z",
+    "likes": [],
+    "saves": [],
+    "isPinned": true
+  },
+  {
+    "id": "1740586619800_zxczxc",
+    "author": "zxczxc",
+    "text": "asdasd",
+    "createdAt": "2025-02-26T16:16:59.804Z",
+    "likes": [],
+    "saves": [],
+    "isPinned": false
+  },
+  {
+    "id": "1740586909769_zxczxc",
+    "author": "zxczxc",
+    "text": "zxczxc",
+    "createdAt": "2025-02-26T16:21:49.773Z",
+    "likes": [],
+    "saves": [],
+    "isPinned": false
+  },
+  {
+    "id": "1740586990511_zxczxc",
+    "author": "zxczxc",
+    "text": "ghoul",
+    "createdAt": "2025-02-26T16:23:10.515Z",
+    "likes": [],
+    "saves": [],
+    "isPinned": false
+  }
+]
