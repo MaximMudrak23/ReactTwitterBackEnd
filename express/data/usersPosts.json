@@ -1,47 +1,33 @@
 [
   {
-    "id": "1740585210857_zxczxc",
+    "id": "1741008903168_zxczxc",
     "author": "zxczxc",
-    "text": "zxczxczxc",
-    "createdAt": "2025-02-26T15:53:30.873Z",
-    "likes": [],
-    "saves": [],
-    "isPinned": false
-  },
-  {
-    "id": "1740586597601_zxczxc",
-    "author": "zxczxc",
-    "text": "asdasdasd",
-    "createdAt": "2025-02-26T16:16:37.617Z",
+    "text": "фывфыв",
+    "createdAt": "2025-03-03T13:35:03.174Z",
     "likes": [],
     "saves": [],
     "isPinned": true
   },
   {
-    "id": "1740586619800_zxczxc",
+    "id": "1741009107287_zxczxc",
     "author": "zxczxc",
-    "text": "asdasd",
-    "createdAt": "2025-02-26T16:16:59.804Z",
+    "text": "ячс",
+    "createdAt": "2025-03-03T13:38:27.292Z",
     "likes": [],
     "saves": [],
     "isPinned": false
   },
   {
-    "id": "1740586909769_zxczxc",
-    "author": "zxczxc",
-    "text": "zxczxc",
-    "createdAt": "2025-02-26T16:21:49.773Z",
-    "likes": [],
-    "saves": [],
-    "isPinned": false
-  },
-  {
-    "id": "1740586990511_zxczxc",
-    "author": "zxczxc",
-    "text": "ghoul",
-    "createdAt": "2025-02-26T16:23:10.515Z",
-    "likes": [],
-    "saves": [],
+    "id": "1741012065975_zxc",
+    "author": "zxc",
+    "text": "ячс",
+    "createdAt": "2025-03-03T14:27:45.978Z",
+    "likes": [
+      "zxczxc"
+    ],
+    "saves": [
+      "zxczxc"
+    ],
     "isPinned": false
   }
 ]
