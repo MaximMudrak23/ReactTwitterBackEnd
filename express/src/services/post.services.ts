@@ -16,7 +16,6 @@ export async function addPostService(text: string, username: string, id: string)
             likes: [],
             saves: [],
             isPinned: false,
-
         };
 
         posts.push(newPost);
@@ -43,36 +42,25 @@ export async function getPostService(username: string) {
         const posts: Post[] = JSON.parse(await fs.readFile(postsPath, "utf-8"));
 
         const user = users.find(u => u.username === username);
-        if (!user) {
-            throw new Error("Пользователь не найден");
-        }
+        if (!user) throw new Error("Пользователь не найден");
 
-        // Функция, которая находит автора и добавляет его данные к посту
-        function attachAuthorData(post: Post) {
-            const author = users.find(u => u.username === post.author);
-            return {
-                ...post,
-                author: author ? { 
-                    username: author.username, 
-                    avatar: author.avatar, 
-                    fullname: author.fullname, 
-                    isUserConfirmed: author.isUserConfirmed, 
-                    isUserTwitterCreator: author.isUserTwitterCreator
-                } : { username: post.author } // если автора нет в БД, оставляем только ник
-            };
-        }
-
-        const userPosts = {
-            pinned: [],
-            created: posts.filter(p => user.posts.created.includes(p.id)).map(attachAuthorData),
-            liked: posts.filter(p => user.posts.liked.includes(p.id)).map(attachAuthorData),
-            saved: posts.filter(p => user.posts.saved.includes(p.id)).map(attachAuthorData)
+        return {
+            created: posts.filter(p => user.posts.created.includes(p.id)).map(p => ({
+                ...p,
+                author: users.find(u => u.username === p.author) || { username: p.author }
+            })),
+            liked: posts.filter(p => user.posts.liked.includes(p.id)).map(p => ({
+                ...p,
+                author: users.find(u => u.username === p.author) || { username: p.author }
+            })),
+            saved: posts.filter(p => user.posts.saved.includes(p.id)).map(p => ({
+                ...p,
+                author: users.find(u => u.username === p.author) || { username: p.author }
+            }))
         };
-
-        return userPosts;
     } catch (error) {
         console.error("Ошибка при получении постов:", error);
-        return { pinned: [], created: [], liked: [], saved: [] };
+        return { created: [], liked: [], saved: [] };
     }
 }
 
@@ -151,6 +139,7 @@ export async function toggleLikeService(postId: string, username: string) {
         await fs.writeFile(postsPath, JSON.stringify(posts, null, 2));
         await fs.writeFile(usersPath, JSON.stringify(users, null, 2));
 
+        console.log(post)
         return post;
     } catch (error) {
         console.error("Ошибка при изменении лайка:", error);

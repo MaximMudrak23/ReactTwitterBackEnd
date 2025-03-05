@@ -29,7 +29,7 @@
     "birthDate": "12-7-2012",
     "fullname": "zxczxczxc",
     "avatar": "http://localhost:3000/userProfilePicture/zxczxc.jpg",
-    "background": null,
+    "background": "http://localhost:3000/userBackground/zxczxc.mp4",
     "regDate": "21.02.2025",
     "isUserConfirmed": false,
     "isUserTwitterCreator": false,
@@ -39,14 +39,17 @@
     "userSubscribers": [],
     "posts": {
       "created": [
+        "1741105341265_zxczxc",
         "1741009107287_zxczxc",
         "1741008903168_zxczxc"
       ],
       "liked": [
+        "1741008903168_zxczxc",
         "1741012065975_zxc"
       ],
       "saved": [
-        "1741012065975_zxc"
+        "1741012065975_zxc",
+        "1741008903168_zxczxc"
       ]
     }
   }

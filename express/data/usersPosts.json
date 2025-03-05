@@ -4,14 +4,18 @@
     "author": "zxczxc",
     "text": "фывфыв",
     "createdAt": "2025-03-03T13:35:03.174Z",
-    "likes": [],
-    "saves": [],
+    "likes": [
+      "zxczxc"
+    ],
+    "saves": [
+      "zxczxc"
+    ],
     "isPinned": true
   },
   {
     "id": "1741009107287_zxczxc",
     "author": "zxczxc",
-    "text": "ячс",
+    "text": "ячсячс",
     "createdAt": "2025-03-03T13:38:27.292Z",
     "likes": [],
     "saves": [],
@@ -28,6 +32,15 @@
     "saves": [
       "zxczxc"
     ],
+    "isPinned": false
+  },
+  {
+    "id": "1741105341265_zxczxc",
+    "author": "zxczxc",
+    "text": "фывфывфыв",
+    "createdAt": "2025-03-04T16:22:21.268Z",
+    "likes": [],
+    "saves": [],
     "isPinned": false
   }
 ]
