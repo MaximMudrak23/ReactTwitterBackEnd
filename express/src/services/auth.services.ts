@@ -1,55 +1,40 @@
-import fs from "fs/promises";
+import fs from 'fs/promises';
 import bcrypt from 'bcrypt';
-import { usersPath } from "../data.path";
-import { User } from "../types/userType";
+import { filePathsObj } from '../data.path';
+import { User } from '../types/userType';
+import { ApiError } from '../../classes/ApiError';
 
+// username, password: hashedPassword, birthDate -  Прилетают с фронта
 export async function register(username: string, password: string, birthDate: string) {
-    try {
-        const users: User[] = JSON.parse(await fs.readFile(usersPath, "utf-8"));
-        
-        if(users.find(user => user.username === username)) {
-            throw new Error('Имя пользователя уже занято!');
-        }
-
-        const hashedPassword = await bcrypt.hash(password,10);
-
-        const newUser: User = {
-            id: Date.now().toString() + `_${username}`,
-            username, // Прилетает с фронта
-            password: hashedPassword, // Прилетает с фронта
-            birthDate, // Прилетает с фронта
-            fullname: username,
-            avatar: null,
-            background: null,
-            regDate: new Date().toLocaleDateString('ru-RU', {day: '2-digit', month: '2-digit', year: 'numeric'}),
-            isUserConfirmed: false,
-            isUserTwitterCreator: false,
-            userSubscribtions: [],
-            userSubscribers: [],
-            posts: {
-                created: [],
-                liked: [],
-                saved: [],
-            }
-        }
-
-        users.push(newUser);
-        await fs.writeFile(usersPath, JSON.stringify(users,null,2));
-        return newUser;
-    } catch (error) {
-        console.error('Ошибка регистрации:', error);
-        return null;
+    const allUsers: User[] = JSON.parse(await fs.readFile(filePathsObj.usersPath, 'utf-8'));
+    if (allUsers.find(u => username === u.username)) throw new ApiError(409,'Имя уже занято');
+    const hashedPassword = await bcrypt.hash(password,10);
+    const newUser: User = {
+        username,
+        password: hashedPassword,
+        birthDate,
+        fullname: username,
+        avatar: null,
+        background: null,
+        regDate: new Date().toLocaleDateString('ru-RU', {day: '2-digit', month: '2-digit', year: 'numeric'}),
+        isUserConfirmed: false,
+        isUserTwitterCreator: false,
+        userSubscribtions: [],
+        userSubscribers: [],
+        posts: {
+            created: [],
+            liked: [],
+            saved: [],
+        },
     }
+    allUsers.push(newUser);
+    await fs.writeFile(filePathsObj.usersPath, JSON.stringify(allUsers,null,2));
+    return newUser;
 };
 
-export async function login (username: string, password: string) {
-    try {
-        const users: User[] = JSON.parse(await fs.readFile(usersPath,'utf-8'));
-        const user = users.find(u => u.username === username);
-        if(!user || !(await bcrypt.compare(password, user.password))) return null;
-        return user || null;
-    } catch (error) {
-        console.error('Ошибка входа:',error);
-        return null;
-    }
+export async function login(username: string, password: string) {
+    const allUsers: User[] = JSON.parse(await fs.readFile(filePathsObj.usersPath,'utf-8'));
+    const user = allUsers.find(u => username === u.username);
+    if (!user || !(await bcrypt.compare(password, user.password))) throw new ApiError(401,'Логин или пароль неверные');
+    return user;
 };

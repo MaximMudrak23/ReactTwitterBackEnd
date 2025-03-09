@@ -1,90 +1,150 @@
 import { Request, Response } from "express";
 import { getUserService, subscribeService, changeFNService, uploadAvatarService, uploadBackgroundService, deleteAvatarService, deleteBackgroundService } from '../services/user.services';
+import { ApiError } from "../../classes/ApiError";
 
 export async function getUserController(req: Request, res: Response) {
-    const { username } = req.params;
-    const user = await getUserService(username);
-    return !user ? res.status(404).json({message:'Пользователь не найден'}) : res.status(200).json(user);
+    try {
+        const {username} = req.params;
+        if (!username) throw new ApiError(400,'Не получен username');
+        const user = await getUserService(username);
+        if (!user) throw new ApiError(404,'Пользователь не найден');
+        return res.status(200).json(user);
+    } catch (error) {
+        if (error instanceof ApiError) {
+            console.error('Ошибка при получении пользователя:', error.message);
+            return res.status(error.status).json({message: error.message});
+        } else if (error instanceof Error && error.constructor === Error) {
+            console.error('Ошибка при получении пользователя:', error.message);
+            return res.status(500).json({message: error.message});
+        } else {
+            console.error('Ошибка при получении пользователя:', error);
+            return res.status(500).json({message: 'Ошибка при получении пользователя'});
+        }
+    }
 }
 
 export async function subscribeController(req: Request, res: Response) {
-    const { currentUser, targetUser, isSubscribed } = req.body;
-
     try {
+        const {currentUser, targetUser, isSubscribed} = req.body;
+        if (!currentUser || !targetUser || isSubscribed === undefined || isSubscribed === null) throw new ApiError(400,'Не получены все данные про пользователя');
         const updatedSubscribersArr = await subscribeService(currentUser, targetUser, isSubscribed);
-        return res.status(200).json({success: true, userSubscribers: updatedSubscribersArr});
+        if (!updatedSubscribersArr) throw new ApiError(500,'Ошибка на сервере');
+        return res.status(200).json({userSubscribers: updatedSubscribersArr});
     } catch (error) {
-        console.error('Ошибка подписки:', error)
-        return res.status(500).json({message: 'Ошибка запроса!'});
+        if (error instanceof ApiError) {
+            console.error('Ошибка при попытке подписаться:', error.message);
+            return res.status(error.status).json({message: error.message});
+        } else if (error instanceof Error && error.constructor === Error) {
+            console.error('Ошибка при попытке подписаться:', error.message);
+            return res.status(500).json({message: error.message});
+        } else {
+            console.error('Ошибка при попытке подписаться:', error);
+            return res.status(500).json({message: 'Ошибка при попытке подписаться'});
+        }
     }
 }
 
 export async function changeFNController(req: Request, res: Response) {
-    const {username, userFullName} = req.body;
-
-    if(!username || !userFullName) {
-        return res.status(400).json({message: 'Нужны username и userFullName'});
-    }
-
     try {
-        await changeFNService(username, userFullName);
+        const {username, userFullName} = req.body;
+        if (!username || !userFullName) throw new ApiError(400,'Не переданы все данные');
+        await changeFNService(username,userFullName);
         return res.sendStatus(200);
     } catch (error) {
-        console.error('Ошибка при обновлении имени:', error);
-        return res.status(500).json({message: 'Ошибка сервера'});
+        if (error instanceof ApiError) {
+            console.error('Ошибка при изменении имени:', error.message);
+            return res.status(error.status).json({message: error.message});
+        } else if (error instanceof Error && error.constructor === Error) {
+            console.error('Ошибка при изменении имени:', error.message);
+            return res.status(500).json({message: error.message});
+        } else {
+            console.error('Ошибка при изменении имени:', error);
+            return res.status(500).json({message: 'Ошибка при изменении имени'});
+        }
     }
 }
 
 export async function uploadAvatarController(req: Request, res: Response) {
-    const { username } = req.body;
-    if (!req.file) return res.status(400).json({ message: "Файл не загружен" });
-
+    
     try {
+        const {username} = req.body;
+        if (!username) throw new ApiError(400,'Не получено username');
+        if (!req.file) throw new ApiError(400,'Файл не загружен');
         const newAvatarName = await uploadAvatarService(username, req.file.path, req.file.mimetype);
         const avatarURL = `http://localhost:3000/userProfilePicture/${newAvatarName}`;
-        
-        return res.status(200).json({ message: "Аватар успешно загружен!", avatar: avatarURL });
+        return res.status(200).json({message: 'Аватар успешно загружен!', avatar: avatarURL});
     } catch (error) {
-        console.error("Ошибка загрузки аватара:", error);
-        return res.status(500).json({ message: "Ошибка загрузки аватара!" });
+        if (error instanceof ApiError) {
+            console.error('Ошибка при загрузке аватара:', error.message);
+            return res.status(error.status).json({message: error.message});
+        } else if (error instanceof Error && error.constructor === Error) {
+            console.error('Ошибка при загрузке аватара:', error.message);
+            return res.status(500).json({message: error.message});
+        } else {
+            console.error('Ошибка при загрузке аватара:', error);
+            return res.status(500).json({message: 'Ошибка при загрузке аватара'});
+        }
     }
 }
 
 export async function uploadBackgroundController(req: Request, res: Response) {
-    const { username } = req.body;
-    if (!req.file) return res.status(400).json({ message: 'Файл не загружен' });
-
     try {
+        const {username} = req.body;
+        if (!username) throw new ApiError(400,'Не получено username');
+        if (!req.file) throw new ApiError(400,'Файл не загружен');
         const newBackgroundName = await uploadBackgroundService(username, req.file.path, req.file.mimetype);
         const backgroundURL = `http://localhost:3000/userBackground/${newBackgroundName}`;
-
         return res.status(200).json({message: 'Фон успешно загружен!', background: backgroundURL});
     } catch (error) {
-        console.error('Ошибка загрузки фона:', error);
-        return res.status(500).json({message: 'Ошибка загрузки фона'});
+        if (error instanceof ApiError) {
+            console.error('Ошибка при загрузке фона:', error.message);
+            return res.status(error.status).json({message: error.message});
+        } else if (error instanceof Error && error.constructor === Error) {
+            console.error('Ошибка при загрузке фона:', error.message);
+            return res.status(500).json({message: error.message});
+        } else {
+            console.error('Ошибка при загрузке фона:', error);
+            return res.status(500).json({message: 'Ошибка при загрузке фона'});
+        }
     }
 }
 
 export async function deleteAvatarController(req: Request, res: Response) {
-    const { username } = req.body;
-
     try {
+        const {username} = req.body;
+        if (!username) throw new ApiError(400,'Не получено username');
         await deleteAvatarService(username);
-        return res.status(200).json({ message: "Аватар удалён" });
+        return res.status(204).json({message: 'Аватар успешно удален'});
     } catch (error) {
-        console.error("Ошибка удаления аватара:", error);
-        return res.status(500).json({ message: "Ошибка удаления аватара" });
+        if (error instanceof ApiError) {
+            console.error('Ошибка при удалении аватара:', error.message);
+            return res.status(error.status).json({message: error.message});
+        } else if (error instanceof Error && error.constructor === Error) {
+            console.error('Ошибка при удалении аватара:', error.message);
+            return res.status(500).json({message: error.message});
+        } else {
+            console.error('Ошибка при удалении аватара:', error);
+            return res.status(500).json({message: 'Ошибка при удалении аватара'});
+        }
     }
 }
 
 export async function deleteBackgroundController(req: Request, res: Response) {
-    const { username } = req.body;
-
     try {
+        const {username} = req.body;
+        if (!username) throw new ApiError(400,'Не получено username');
         await deleteBackgroundService(username);
-        return res.status(200).json({ message: "Фон удалён" });
+        return res.status(204).json({message: 'Фон удалён'}); // тут sendStatus потому-что при 204 не принято возвращать тело ответа
     } catch (error) {
-        console.error("Ошибка удаления фона:", error);
-        return res.status(500).json({ message: "Ошибка удаления фона" });
+        if (error instanceof ApiError) {
+            console.error('Ошибка при удалении фона:', error.message);
+            return res.status(error.status).json({message: error.message});
+        } else if (error instanceof Error && error.constructor === Error) {
+            console.error('Ошибка при удалении фона:', error.message);
+            return res.status(500).json({message: error.message});
+        } else {
+            console.error('Ошибка при удалении фона:', error);
+            return res.status(500).json({message: 'Ошибка при удалении фона'});
+        }
     }
 }

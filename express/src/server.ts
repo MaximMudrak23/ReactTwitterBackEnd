@@ -1,23 +1,29 @@
-import express from "express";
+import express from 'express';
 import cors from 'cors';
 import authRoutes from './routes/auth.routes';
 import userRouter from './routes/user.routes';
 import postRouter from './routes/post.routes';
-import { userBackgroundPath, userProfilePicturePath } from './data.path';
+import editRouter from './routes/edit.routes';
+import { filePathsObj } from './data.path';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(cors());
+const corsOptions = {
+    origin: 'http://localhost:5173',
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+};
+app.use(cors(corsOptions));
 app.use(express.json());
 
-app.use('/userBackground', express.static(userBackgroundPath));
-app.use('/userProfilePicture', express.static(userProfilePicturePath));
+app.use('/userBackground', express.static(filePathsObj.userBackgroundPath));
+app.use('/userProfilePicture', express.static(filePathsObj.userProfilePicturePath));
 
 app.use('/api', authRoutes);
 app.use('/api/user', userRouter);
 app.use('/api/post', postRouter);
+app.use('/api/edit', editRouter);
 
 app.listen(PORT, () => {
-    console.log(`Server is running on: http://localhost:${PORT}`);
+    console.log(`Server is running at: http://localhost:${PORT}`);
 })
