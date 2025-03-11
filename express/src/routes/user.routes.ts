@@ -5,7 +5,7 @@ const router = Router();
 
 router.get('/:username', getUserController);
 router.post('/subscribe', subscribeController);
-router.put('/changeFN', changeFNController);
+router.patch('/changeFN', changeFNController);
 router.delete('/deleteAvatar', deleteAvatarController);
 router.delete('/deleteBackground', deleteBackgroundController);
 
