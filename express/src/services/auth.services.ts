@@ -26,6 +26,7 @@ export async function register(username: string, password: string, birthDate: st
             liked: [],
             saved: [],
         },
+        chats: [],
     }
     allUsers.push(newUser);
     await fs.writeFile(filePathsObj.usersPath, JSON.stringify(allUsers,null,2));

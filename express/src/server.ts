@@ -4,6 +4,7 @@ import authRoutes from './routes/auth.routes';
 import userRouter from './routes/user.routes';
 import postRouter from './routes/post.routes';
 import editRouter from './routes/edit.routes';
+import chatRouter from './routes/chat.routes';
 import { filePathsObj } from './data.path';
 
 const app = express();
@@ -23,6 +24,7 @@ app.use('/api', authRoutes);
 app.use('/api/user', userRouter);
 app.use('/api/post', postRouter);
 app.use('/api/edit', editRouter);
+app.use('/api/chat', chatRouter);
 
 app.listen(PORT, () => {
     console.log(`Server is running at: http://localhost:${PORT}`);

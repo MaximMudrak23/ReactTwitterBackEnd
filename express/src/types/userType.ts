@@ -15,4 +15,5 @@ export interface User {
         liked: string[];
         saved: string[];
     }
+    chats: string[];
 }
