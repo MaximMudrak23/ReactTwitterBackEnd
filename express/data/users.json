@@ -18,10 +18,7 @@
       "liked": [],
       "saved": []
     },
-    "chats": [
-      "xcv_zxc_1742127634305",
-      "zxc_zxcxcv_1742143917837"
-    ]
+    "chats": []
   },
   {
     "username": "xcv",
@@ -40,29 +37,6 @@
       "liked": [],
       "saved": []
     },
-    "chats": [
-      "xcv_zxc_1742127634305"
-    ]
-  },
-  {
-    "username": "zxcxcv",
-    "password": "$2b$10$z74rylZQ50iSutqTThMEX.xSZAjiFBhY7kqxtq5.m/0/uJ5tcgwnC",
-    "birthDate": "1-9-2008",
-    "fullname": "homelander",
-    "avatar": "http://localhost:3000/userProfilePicture/zxcxcv.jpg",
-    "background": null,
-    "regDate": "16.03.2025",
-    "isUserConfirmed": false,
-    "isUserTwitterCreator": false,
-    "userSubscribtions": [],
-    "userSubscribers": [],
-    "posts": {
-      "created": [],
-      "liked": [],
-      "saved": []
-    },
-    "chats": [
-      "zxc_zxcxcv_1742143917837"
-    ]
+    "chats": []
   }
 ]

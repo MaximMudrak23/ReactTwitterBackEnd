@@ -1,26 +1,3 @@
 [
-  {
-    "id": "xcv_zxc_1742127634305",
-    "users": [
-      "xcv",
-      "zxc"
-    ],
-    "messages": [
-      "msg_xcv_zxc_1742227755574",
-      "msg_xcv_zxc_1742227771958",
-      "msg_xcv_zxc_1742229199971",
-      "msg_xcv_zxc_1742232886020"
-    ]
-  },
-  {
-    "id": "zxc_zxcxcv_1742143917837",
-    "users": [
-      "zxc",
-      "zxcxcv"
-    ],
-    "messages": [
-      "msg_zxc_zxcxcv_1742232026421",
-      "msg_zxc_zxcxcv_1742232709550"
-    ]
-  }
+  
 ]
