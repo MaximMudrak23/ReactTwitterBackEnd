@@ -1,5 +1,14 @@
 import { Request, Response } from "express";
-import { getUserService, subscribeService, changeFNService, uploadAvatarService, uploadBackgroundService, deleteAvatarService, deleteBackgroundService } from '../services/user.services';
+import {
+    getUserService,
+    subscribeService,
+    changeFNService,
+    uploadAvatarService,
+    uploadBackgroundService,
+    deleteAvatarService,
+    deleteBackgroundService,
+    getUserRelationsService
+} from '../services/user.services';
 import { ApiError } from "../../classes/ApiError";
 
 export async function getUserController(req: Request, res: Response) {
@@ -145,6 +154,26 @@ export async function deleteBackgroundController(req: Request, res: Response) {
         } else {
             console.error('Ошибка при удалении фона:', error);
             return res.status(500).json({message: 'Ошибка при удалении фона'});
+        }
+    }
+}
+
+export async function getUserRelationsController(req: Request, res: Response) {
+    try {
+        const { username } = req.params;
+        if (!username) throw new ApiError(400,'Ожидался username в параметрах');
+        const userRelations = await getUserRelationsService(username);
+        return res.status(200).json(userRelations);
+    } catch (error) {
+        if (error instanceof ApiError) {
+            console.error('Ошибка при получении всех пользователей:', error.message);
+            return res.status(error.status).json({message: error.message});
+        } else if (error instanceof Error && error.constructor === Error) {
+            console.error('Ошибка при получении всех пользователей:', error.message);
+            return res.status(500).json({message: error.message});
+        } else {
+            console.error('Ошибка при получении всех пользователей:', error);
+            return res.status(500).json({message: 'Ошибка при получении всех пользователей'});
         }
     }
 }

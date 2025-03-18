@@ -10,7 +10,9 @@
     "isUserConfirmed": true,
     "isUserTwitterCreator": true,
     "userSubscribtions": [],
-    "userSubscribers": [],
+    "userSubscribers": [
+      "xcv"
+    ],
     "posts": {
       "created": [
         "1742144792344_zxc"
@@ -18,7 +20,9 @@
       "liked": [],
       "saved": []
     },
-    "chats": []
+    "chats": [
+      "xcv_zxc_1742300601642"
+    ]
   },
   {
     "username": "xcv",
@@ -30,13 +34,17 @@
     "regDate": "15.03.2025",
     "isUserConfirmed": false,
     "isUserTwitterCreator": false,
-    "userSubscribtions": [],
+    "userSubscribtions": [
+      "zxc"
+    ],
     "userSubscribers": [],
     "posts": {
       "created": [],
       "liked": [],
       "saved": []
     },
-    "chats": []
+    "chats": [
+      "xcv_zxc_1742300601642"
+    ]
   }
 ]

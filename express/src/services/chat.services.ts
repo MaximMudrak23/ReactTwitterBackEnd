@@ -75,12 +75,16 @@ export async function getFullChatService(chatID: string) {
             {
                 username: user1Data.username,
                 fullname: user1Data.fullname,
-                avatar: user1Data.avatar
+                avatar: user1Data.avatar,
+                isUserConfirmed: user1Data.isUserConfirmed,
+                isUserTwitterCreator: user1Data.isUserTwitterCreator
             },
             {
                 username: user2Data.username,
                 fullname: user2Data.fullname,
-                avatar: user2Data.avatar
+                avatar: user2Data.avatar,
+                isUserConfirmed: user2Data.isUserConfirmed,
+                isUserTwitterCreator: user2Data.isUserTwitterCreator
             }
         ],
         messages: chatMessages

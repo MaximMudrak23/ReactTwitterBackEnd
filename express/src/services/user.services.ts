@@ -99,3 +99,12 @@ export async function deleteBackgroundService(username: string) {
     user.background = null;
     await fs.writeFile(filePathsObj.usersPath, JSON.stringify(allUsers, null, 2));
 }
+
+export async function getUserRelationsService(username: string) {
+    const allUsers: User[] = JSON.parse(await fs.readFile(filePathsObj.usersPath, 'utf-8'));
+    const user = allUsers.find(u => username === u.username);
+    if (!user) throw new ApiError(404,'Такой пользователь не найден');
+    const userSubscribers = allUsers.filter(u => user.userSubscribers.includes(u.username));
+    const userSubscribtions = allUsers.filter(u => user.userSubscribtions.includes(u.username));
+    return {userSubscribers, userSubscribtions};
+}
