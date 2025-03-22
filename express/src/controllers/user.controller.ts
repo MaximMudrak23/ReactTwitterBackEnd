@@ -7,7 +7,8 @@ import {
     uploadBackgroundService,
     deleteAvatarService,
     deleteBackgroundService,
-    getUserRelationsService
+    getUserRelationsService,
+    searchUsersService
 } from '../services/user.services';
 import { ApiError } from "../../classes/ApiError";
 
@@ -174,6 +175,24 @@ export async function getUserRelationsController(req: Request, res: Response) {
         } else {
             console.error('Ошибка при получении всех пользователей:', error);
             return res.status(500).json({message: 'Ошибка при получении всех пользователей'});
+        }
+    }
+}
+
+export async function searchUsersController(req: Request, res: Response) {
+    try {
+        const { query } = req.params;
+        if (!query) throw new ApiError(404, 'Ошибка при получении данных поиска');
+
+        const foundUsers = await searchUsersService(query);
+        return res.json(foundUsers);
+    } catch (error) {
+        if (error instanceof ApiError) {
+            console.error('Ошибка при поиске пользователей:', error.message);
+            return res.status(error.status).json({ message: error.message });
+        } else {
+            console.error('Ошибка при поиске пользователей:', error);
+            return res.status(500).json({ message: 'Ошибка при поиске пользователей' });
         }
     }
 }

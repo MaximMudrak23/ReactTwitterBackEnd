@@ -5,13 +5,15 @@ import {
     changeFNController,
     deleteAvatarController,
     deleteBackgroundController,
-    getUserRelationsController
+    getUserRelationsController,
+    searchUsersController
 } from '../controllers/user.controller';
 
 const router = Router();
 
 router.get('/:username', getUserController);
 router.get('/relations/:username', getUserRelationsController);
+router.get('/search/:query', searchUsersController);
 router.post('/subscribe', subscribeController);
 router.patch('/changeFN', changeFNController);
 router.delete('/deleteAvatar', deleteAvatarController);

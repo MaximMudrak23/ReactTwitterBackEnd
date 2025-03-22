@@ -108,3 +108,8 @@ export async function getUserRelationsService(username: string) {
     const userSubscribtions = allUsers.filter(u => user.userSubscribtions.includes(u.username));
     return {userSubscribers, userSubscribtions};
 }
+
+export async function searchUsersService(query: string) {
+    const allUsers: User[] = JSON.parse(await fs.readFile(filePathsObj.usersPath, 'utf-8'));
+    return allUsers.filter(u =>  u.username.toLowerCase().startsWith(query.toLowerCase())).slice(0, 3);
+}
